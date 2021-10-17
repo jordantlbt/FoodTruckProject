@@ -22,7 +22,7 @@ public class FoodTruck {
 
 	}
 
-	public int getFoodTruckCounter() {
+	public static int getFoodTruckCounter() {
 		return foodTruckCounter;
 	}
 

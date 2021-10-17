@@ -15,7 +15,6 @@ public class FoodTruckApp {
 
 	public static void main(String[] args) {
 
-
 		// used to call non static methods
 
 		// loop the questions and scanner while user inputs info
@@ -25,7 +24,7 @@ public class FoodTruckApp {
 			System.out.print("Please enter the name of a food truck: ");
 			String foodTruckName = userInput.nextLine();
 
-			if (foodTruckName.equals("Quit")) {
+			if (foodTruckName.equalsIgnoreCase("Quit")) {
 				break;
 			}
 
@@ -37,12 +36,7 @@ public class FoodTruckApp {
 			userInput.nextLine();
 			System.out.println();
 
-			// String truckInfo = "Name of the food truck: " +foodTruckName + "Type of food:
-			// " + foodTruckType + "Rating of Food truck: " + foodTruckRating;
-			// System.out.println(i + internals);
-
 			foodTrucks[i] = new FoodTruck(foodTruckName, foodTruckType, foodTruckRating);
-			// foodTrucks[count] = foodTruck;
 
 		}
 		ft.menuChoices(foodTrucks);
@@ -60,13 +54,14 @@ public class FoodTruckApp {
 			int choice = userInput.nextInt();
 			switch (choice) {
 			case 1: // all food truck names except for null
-				System.out.println();
-				System.out.println();
+				allFoodTrucks();
 				break;
 			case 2: // average rating for the trucks
 				System.out.println(averageRating(foodTrucks));
+				System.out.println();
 				break;
 			case 3: // highest rated food truck
+				highestRating(foodTrucks);
 				System.out.println();
 				break;
 			case 4: // exit
@@ -116,14 +111,35 @@ public class FoodTruckApp {
 
 	}
 
-	// sort all the food truck ratings to find the highest rating
-	public int highestRating(FoodTruck[] foodTrucks) {
+	// sort through trucks to find the highest rated and ignore the null
+	public void highestRating(FoodTruck[] foodTrucks) {
 
-		int size = foodTrucks.length;
-		Arrays.sort(foodTrucks);
-		int highest = size - 1;
+		double rating = 0;
+		String highestRated = null;
 
-		return highest;
+		for (int i = 0; i < foodTrucks.length; i++) {
+			if (foodTrucks[i] == null) {
+				break;
+			} else if (foodTrucks[i].getFoodTruckRating() > rating) {
+				rating = foodTrucks[i].getFoodTruckRating();
+				highestRated = foodTrucks[i].getFoodTruckName();
+			}
+		}
+		System.out.println("The highest rated food truck is: " + highestRated);
+
 	}
 
+	// print all food trucks in array and ignore null
+	public void allFoodTrucks() {
+
+		for (FoodTruck foodTruck : foodTrucks) {
+			if (foodTruck != (null)) {
+
+				System.out.println(foodTruck.toString());
+				System.out.println();
+			}
+
+		}
+
+	}
 }
